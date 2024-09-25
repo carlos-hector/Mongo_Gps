@@ -1,6 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Coordenada = require("./models/Coordenada");
+const cors = require("cors");
+
+const config = {
+  application: {
+    cors: {
+      server: [
+        {
+          origin: "localhost:5500", //servidor que deseas que consuma o (*) en caso que sea acceso libre
+          credentials: true,
+        },
+      ],
+    },
+  },
+};
 
 require("dotenv").config({ path: "./.env" });
 const bbdd = process.env.URI;
@@ -8,6 +22,8 @@ const bbdd = process.env.URI;
 const app = express();
 
 app.use(express.json());
+
+app.use(cors(config.application.cors.server));
 
 mongoose.connect(bbdd);
 mongoose.connection.on("connected", () => {
