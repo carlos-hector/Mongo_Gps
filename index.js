@@ -23,8 +23,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors(config.application.cors.server));
-
+//app.use(cors(config.application.cors.server));
+app.use(cors());
 mongoose.connect(bbdd);
 mongoose.connection.on("connected", () => {
   console.log("Yao mongoose ok");
